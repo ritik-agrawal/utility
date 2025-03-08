@@ -39,7 +39,6 @@ publishing {
 		val repo = "utility"
 		val gitUrl = "https://maven.pkg.github.com/${user}/${repo}"
 		maven {
-			System.out.println(String.format("username: %s | token: %s", user, token))
 			name = "GitHubPackages"
 			url = uri(gitUrl)
 			credentials {
