@@ -5,8 +5,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.domain.Sort.Direction;
 
-import static rklab.utility.constants.GlobalConstants.CREATED_AT;
-
 
 @Data
 @NoArgsConstructor
@@ -14,7 +12,7 @@ public class PageableSearchCriteria {
 
     private int perPage = 99999;
     private int pageNo = 1;
-    private String sortBy = CREATED_AT;
+    private String sortBy = "createdAt";
     private Direction sortDirection = Direction.ASC;
 
     @Builder
