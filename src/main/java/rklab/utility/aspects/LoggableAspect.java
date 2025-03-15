@@ -30,7 +30,7 @@ public class LoggableAspect {
     /**
      * Pointcut having loggable annotation.
      */
-    @Pointcut("@within(com.neonlab.common.annotations.Loggable)")
+    @Pointcut("@within(rklab.utility.annotations.Loggable)")
     public void pointcutHavingLoggableAnnotation() {}
 
     /**
