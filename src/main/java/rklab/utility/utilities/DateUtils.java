@@ -15,6 +15,13 @@ public class DateUtils {
         return calendar.getTime();
     }
 
+    public static Date getDateAfterNDays(int n){
+        var calendar = Calendar.getInstance();
+        calendar.setTime(new Date());
+        calendar.add(Calendar.DAY_OF_MONTH, n);
+        return calendar.getTime();
+    }
+
     public static long getUnixTime(Date date){
         var time = date.getTime();
         return time / 1000L;
