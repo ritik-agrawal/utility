@@ -31,6 +31,7 @@ public class GlobalConstants {
     public static class RegexPattern{
         public static final String IFSC_REGEX = "^[A-Z]{4}0[A-Z0-9]{6}$";
         public static final String PHONE_NO_REGEX = "^[0-9]{10}$";
+        public static final String PIN_CODE_REGEX = "^[1-9][0-9]{5}$";
     }
 
 }
