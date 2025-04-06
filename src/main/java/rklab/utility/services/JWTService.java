@@ -1,6 +1,7 @@
 package rklab.utility.services;
 
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -68,6 +69,22 @@ public class JWTService {
                 .build()
                 .parseSignedClaims(token)
                 .getPayload();
+    }
+
+    /**
+     * Is active boolean.
+     *
+     * @param token            the token
+     * @param jwtConfiguration the jwt configuration
+     * @return the boolean
+     */
+    public boolean isActive(String token, JwtConfiguration jwtConfiguration){
+        try {
+            var expiryDate = extractClaim(token, Claims::getExpiration, jwtConfiguration);
+            return (new Date()).before(expiryDate);
+        } catch (ExpiredJwtException e) {
+            return false;
+        }
     }
 
 }
