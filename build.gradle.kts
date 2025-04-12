@@ -13,7 +13,7 @@ java {
 }
 
 group = "com.rklab"
-version = "addUser-0.0.1-SNAPSHOT"
+version = "utility-0.0.2-SNAPSHOT"
 description = "Initial version of utility"
 
 configurations {
