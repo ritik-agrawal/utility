@@ -1,11 +1,15 @@
 package rklab.utility.utilities;
 
+import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
 import jakarta.validation.Validation;
 import jakarta.validation.Validator;
 import org.springframework.stereotype.Component;
+import org.springframework.util.CollectionUtils;
 import org.springframework.validation.Errors;
 
+import java.util.LinkedHashSet;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 
@@ -29,6 +33,17 @@ public class ValidationUtils {
         if (!violations.isEmpty()){
             throw new ConstraintViolationException(violations);
         }
+    }
+
+    public <T> Set<ConstraintViolation<T>> validate(T object, Set<Class<?>> groups) {
+        var violations = new LinkedHashSet<ConstraintViolation<T>>();
+        for (var group : groups){
+            var currentViolations = validator.validate(object, group);
+            if (!CollectionUtils.isEmpty(currentViolations)){
+                violations.addAll(currentViolations);
+            }
+        }
+        return violations;
     }
 
     private static String formatErrors(Errors errors) {
