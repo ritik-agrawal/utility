@@ -15,6 +15,7 @@ import org.springframework.web.context.request.WebRequest;
 
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.LinkedList;
 
 @Slf4j
 @RestControllerAdvice
@@ -56,13 +57,8 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(value = {ExcelRecordException.class})
     public ApiOutput<?> handleExcelProcessingException(ExcelRecordException ex){
-        var errorMap = new HashMap<String, String>();
-        for (var violation : ex.getErrors()) {
-            errorMap.put(
-                    String.format("[%s, %s]", violation.getRow(), violation.getCol())
-                    , violation.getErrorMessage());
-        }
-        return new ApiOutput<>(HttpStatus.BAD_REQUEST.value(),"Bad request", errorMap);
+        var errors = ex.getErrors();
+        return new ApiOutput<>(HttpStatus.BAD_REQUEST.value(),"Bad request", errors);
     }
 }
 
