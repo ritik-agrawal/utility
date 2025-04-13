@@ -1,7 +1,6 @@
 package rklab.utility.expectations;
 
-import jakarta.validation.ConstraintViolation;
-import org.hibernate.mapping.Map;
+import org.springframework.web.ErrorResponse;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import rklab.utility.dto.ApiOutput;
 import jakarta.validation.ConstraintViolationException;
@@ -14,6 +13,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 
+import java.util.Collections;
 import java.util.HashMap;
 
 @Slf4j
@@ -52,6 +52,17 @@ public class GlobalExceptionHandler {
     public ApiOutput<?> genericExceptionHandler(Exception ex, WebRequest request){
         log.error("Error Stack.", ex);
         return new ApiOutput<String>(HttpStatus.UNPROCESSABLE_ENTITY.value(), ex.getLocalizedMessage());
+    }
+
+    @ExceptionHandler(value = {ExcelRecordException.class})
+    public ApiOutput<?> handleExcelProcessingException(ExcelRecordException ex){
+        var errorMap = new HashMap<String, String>();
+        for (var violation : ex.getErrors()) {
+            errorMap.put(
+                    String.format("[%s, %s]", violation.getRow(), violation.getCol())
+                    , violation.getErrorMessage());
+        }
+        return new ApiOutput<>(HttpStatus.BAD_REQUEST.value(),"Bad request", errorMap);
     }
 }
 
