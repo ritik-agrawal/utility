@@ -60,14 +60,13 @@ public class ExcelUtils {
     private static String getCellValueAsString(Cell cell) {
         if(cell == null || cell.getCellType() == CellType.BLANK) return "";
 
-        if (cell.getCellType() == CellType.NUMERIC) {
-            double numValue = cell.getNumericCellValue();
-            DecimalFormat df = new DecimalFormat("#");
-            df.setMaximumFractionDigits(0);
-            return df.format(numValue);
-        }
-
         return switch (cell.getCellType()) {
+            case NUMERIC -> {
+                double numValue = cell.getNumericCellValue();
+                DecimalFormat df = new DecimalFormat("#");
+                df.setMaximumFractionDigits(0);
+                yield df.format(numValue);
+            }
             case STRING -> cell.getStringCellValue().trim();
             case BOOLEAN -> String.valueOf(cell.getBooleanCellValue());
             default -> "";
