@@ -7,6 +7,7 @@ import org.apache.poi.ss.usermodel.*;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Field;
+import java.text.DecimalFormat;
 import java.util.Arrays;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -56,13 +57,18 @@ public class ExcelUtils {
         return new ExcelParseDto<>(dtoSet, errorList);
     }
 
-    private static String getCellValueAsString(Cell cell){
+    private static String getCellValueAsString(Cell cell) {
         if(cell == null || cell.getCellType() == CellType.BLANK) return "";
 
-        return switch(cell.getCellType()){
-            case STRING -> cell.toString().trim();
-            case NUMERIC -> String.valueOf(cell.getNumericCellValue()).trim();
-            case BOOLEAN -> String.valueOf(cell.getBooleanCellValue()).trim();
+        return switch (cell.getCellType()) {
+            case NUMERIC -> {
+                double numValue = cell.getNumericCellValue();
+                DecimalFormat df = new DecimalFormat("#");
+                df.setMaximumFractionDigits(0);
+                yield df.format(numValue);
+            }
+            case STRING -> cell.getStringCellValue().trim();
+            case BOOLEAN -> String.valueOf(cell.getBooleanCellValue());
             default -> "";
         };
     }
