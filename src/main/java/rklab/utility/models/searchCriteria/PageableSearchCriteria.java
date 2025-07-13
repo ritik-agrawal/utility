@@ -10,7 +10,7 @@ import org.springframework.data.domain.Sort.Direction;
 @NoArgsConstructor
 public class PageableSearchCriteria {
 
-    private int perPage = 99999;
+    private int perPage = 20;
     private int pageNo = 1;
     private String sortBy = "createdAt";
     private Direction sortDirection = Direction.ASC;
