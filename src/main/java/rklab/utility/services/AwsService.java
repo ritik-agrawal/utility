@@ -73,7 +73,7 @@ public class AwsService {
                     .build();
             var response = s3Client.putObject(
                     putRequest,
-                    RequestBody.fromInputStream(uploadRequest.getInputStream(), uploadRequest.getContentLength())
+                    RequestBody.fromBytes(uploadRequest.getContent())
             );
             log.info("Object uploaded to server successfully with eTag {}",response.eTag().replace("\"", ""));
             return response.eTag().replace("\"", "");
