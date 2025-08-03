@@ -13,7 +13,7 @@ java {
 }
 
 group = "com.rklab"
-version = "utility-0.0.6-SNAPSHOT"
+version = "utility-0.0.7-SNAPSHOT"
 description = "Initial version of utility"
 
 configurations {
@@ -78,6 +78,9 @@ dependencies {
 	runtimeOnly("io.jsonwebtoken:jjwt-jackson:0.12.6")
 	implementation ("org.apache.poi:poi:5.3.0")
 	implementation ("org.apache.poi:poi-ooxml:5.3.0")
+	implementation("software.amazon.awssdk:s3:2.32.14")
+	implementation("software.amazon.awssdk:auth:2.32.14")
+	implementation("software.amazon.awssdk:regions:2.32.14")
 }
 
 tasks.withType<Test> {
