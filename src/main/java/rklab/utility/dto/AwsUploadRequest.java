@@ -14,29 +14,19 @@ public class AwsUploadRequest extends AwsRequest{
     /**
      * Input Stream of the object to be uploaded
      */
-    private InputStream inputStream;
+    private byte[] content;
 
-    /**
-     * Object size in bytes
-     */
-    private long contentLength;
-
-    /**
-     * Object MIME type
-     */
     private String contentType;
 
     @Builder(builderMethodName = "awsUploadRequestBuilder")
     public AwsUploadRequest(
             AwsConfiguration config,
             String key,
-            InputStream inputStream,
-            long contentLength,
+            byte[] content,
             String contentType
     ) {
         super(config, key);
-        this.contentLength = contentLength;
+        this.content = content;
         this.contentType = contentType;
-        this.inputStream = inputStream;
     }
 }
