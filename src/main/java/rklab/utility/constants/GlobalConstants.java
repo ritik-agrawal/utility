@@ -19,6 +19,7 @@ public class GlobalConstants {
         public static String DOUBLE_COLON = "::";
         public static String COMMA = ",";
         public static String PERCENTAGE = "%";
+        public static String BACK_SLASH = "/";
 
     }
 
